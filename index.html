@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edwin Odero — Software, DevOps & Infrastructure Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0b0e13;
+      --surface: #111418;
+      --surface2: #161b22;
+      --border: #21262d;
+      --accent: #58a6ff;
+      --accent2: #3fb950;
+      --text: #e6edf3;
+      --muted: #7d8590;
+      --tag-bg: #1f2937;
+      --tag-border: #30363d;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── SCAN LINE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.013) 2px,
+        rgba(255,255,255,0.013) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── HEADER ── */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 48px;
+      margin-bottom: 56px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .prompt-line {
+      font-size: 12px;
+      color: var(--accent2);
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+    }
+
+    .prompt-line span { color: var(--muted); }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(36px, 7vw, 64px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .tagline strong { color: var(--accent2); font-weight: 500; }
+
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .contact a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .contact a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: rgba(88, 166, 255, 0.06);
+    }
+
+    .contact a::before { content: '→ '; opacity: 0.4; }
+
+    /* ── SECTION ── */
+    section {
+      margin-bottom: 52px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    section:nth-child(2) { animation-delay: 0.1s; }
+    section:nth-child(3) { animation-delay: 0.2s; }
+    section:nth-child(4) { animation-delay: 0.3s; }
+    section:nth-child(5) { animation-delay: 0.4s; }
+    section:nth-child(6) { animation-delay: 0.5s; }
+    section:nth-child(7) { animation-delay: 0.6s; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      color: var(--accent2);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── PROFILE ── */
+    .profile-text {
+      color: #adbac7;
+      font-size: 14px;
+      line-height: 1.8;
+      border-left: 2px solid var(--accent);
+      padding-left: 20px;
+    }
+
+    /* ── JOB CARD ── */
+    .job {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+
+    .job:hover { border-color: var(--accent); }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .job-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--text);
+    }
+
+    .job-company {
+      font-size: 13px;
+      color: var(--accent);
+      margin-top: 3px;
+    }
+
+    .job-date {
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .job ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .job ul li {
+      color: #adbac7;
+      font-size: 13px;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .job ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+      font-size: 11px;
+      top: 2px;
+    }
+
+    /* ── SKILLS ── */
+    .skills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .skill-row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .skill-row:hover {
+      border-color: var(--accent);
+      background: var(--surface2);
+    }
+
+    .skill-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      min-width: 220px;
+    }
+
+    .skill-desc {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .skill-sep {
+      color: var(--border);
+      font-size: 12px;
+    }
+
+    /* ── WHY THIS ROLE ── */
+    .why-block {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      padding: 28px 32px;
+      color: #adbac7;
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    .edu-degree {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .edu-school {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .edu-year {
+      font-size: 12px;
+      color: var(--accent2);
+      background: rgba(63, 185, 80, 0.08);
+      border: 1px solid rgba(63, 185, 80, 0.2);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+      margin-top: 60px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer span { color: var(--accent); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .skill-row { flex-direction: column; gap: 4px; }
+      .skill-name { min-width: unset; }
+      .job-header { flex-direction: column; }
+      .container { padding: 40px 16px 60px; }
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: white; color: black; }
+      body::before { display: none; }
+      .job, .skill-row, .edu-item, .why-block { border-color: #ccc; background: white; }
+      .section-label { color: #333; }
+      .section-label::after { background: #ccc; }
+      h1 { color: black; }
+      h1 em, .job-company, .contact a, .accent { color: #1a56db; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- HEADER -->
+    <header>
+      <div class="prompt-line">~/resume <span>$</span> cat profile.md</div>
+      <h1>Edwin <em>Odero</em></h1>
+      <p class="tagline">
+        <strong>Software</strong> · <strong>DevOps</strong> · <strong>Infrastructure Engineer</strong>
+      </p>
+      <div class="contact">
+        <a href="mailto:edwinodero70@gmail.com">edwinodero70@gmail.com</a>
+        <!-- Add more links here: GitHub, LinkedIn, etc. -->
+      </div>
+    </header>
+
+    <!-- PROFILE -->
+    <section>
+      <div class="section-label">Professional Profile</div>
+      <p class="profile-text">
+        A full-spectrum engineer operating across the entire technology stack — from software development and bare-metal provisioning to network architecture, application deployment, observability, and business continuity. The value is the ability to own infrastructure end-to-end: designing systems that are resilient by default, automating everything that should not require human intervention, and ensuring that production environments stay available, recoverable, and ready to scale. The result for any organization is fewer handoffs, faster resolution, and infrastructure treated as a first-class engineering concern.
+      </p>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section>
+      <div class="section-label">Professional Experience</div>
+
+      <div class="job">
+        <div class="job-header">
+          <div>
+            <div class="job-title">Software &amp; DevOps Engineer</div>
+            <div class="job-company">Cloudoon</div>
+          </div>
+          <div class="job-date">May 2025 – Oct 2025</div>
+        </div>
+        <ul>
+          <li>Designed and developed internal tooling and automation scripts that streamlined infrastructure management, reducing manual intervention across provisioning and deployment workflows.</li>
+          <li>Built and maintained RESTful APIs and backend services integrated directly with hosting platform components, enabling programmatic control over server and environment configuration.</li>
+          <li>Architected multi-tenant web hosting infrastructure, managing deployment pipelines and environment configuration at scale.</li>
+          <li>Implemented automated backup and disaster recovery workflows, ensuring defined RTO/RPO objectives were consistently met.</li>
+          <li>Designed high-availability configurations including load balancing, failover clustering, and redundant storage to eliminate single points of failure.</li>
+          <li>Established monitoring and alerting frameworks covering uptime, performance thresholds, and capacity trends — enabling proactive intervention before user impact.</li>
+          <li>Integrated CI/CD pipelines in collaboration with development teams, reducing deployment lead times and release overhead.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <div>
+            <div class="job-title">Systems Engineer</div>
+            <div class="job-company">Hybrid Cloud Company</div>
+          </div>
+          <div class="job-date">Dec 2025 – Present</div>
+        </div>
+        <ul>
+          <li>Engineered and operated hybrid cloud environments, bridging on-premises infrastructure with public cloud services to support diverse workload requirements.</li>
+          <li>Managed compute, storage, and network resources across both physical and virtualized layers, ensuring consistent performance and security posture.</li>
+          <li>Delivered fault-tolerant architectures that maintained service continuity during infrastructure changes, hardware failures, and peak demand events.</li>
+          <li>Drove automation initiatives that replaced manual operational processes with repeatable, auditable workflows — improving reliability and reducing toil.</li>
+          <li>Owned capacity planning and scaling decisions, modeling growth patterns and adjusting infrastructure ahead of demand rather than in response to it.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section>
+      <div class="section-label">Core Competencies</div>
+      <div class="skills-list">
+        <div class="skill-row">
+          <span class="skill-name">Software Engineering</span>
+          <span class="skill-sep">—</span>
+          <span class="skill-desc">Full-stack development, API design &amp; integration, automation tooling</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Infrastructure &amp; Provisioning</span>
+          <span class="skill-sep">—</span>
+          <span class="skill-desc">Bare-metal, virtual, and cloud environments</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Deployment &amp; Release Management</span>
+          <span class="skill-sep">—</span>
+          <span class="skill-desc">CI/CD pipelines, environment promotion</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">High Availability Architecture</span>
+          <span class="skill-sep">—</span>
+          <span class="skill-desc">Load balancing, failover, redundancy</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Backup &amp; Disaster Recovery</span>
+          <span class="skill-sep">—</span>
+          <span class="skill-desc">RTO/RPO planning, automated recovery workflows</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Performance Monitoring &amp; Alerting</span>
+          <span class="skill-sep">—</span>
+          <span class="skill-desc">Observability stacks, proactive incident response</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Hybrid &amp; Multi-Cloud</span>
+          <span class="skill-sep">—</span>
+          <span class="skill-desc">On-prem/cloud integration, workload portability</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Capacity Planning &amp; Scaling</span>
+          <span class="skill-sep">—</span>
+          <span class="skill-desc">Growth modeling, horizontal and vertical scaling</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Security Hardening &amp; Compliance</span>
+          <span class="skill-sep">—</span>
+          <span class="skill-desc">Access controls, audit trails, policy enforcement</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY THIS ROLE -->
+    <section>
+      <div class="section-label">Why This Role</div>
+      <div class="why-block">
+        Most organizations hiring for technical roles default to a narrow job description — a developer, a systems administrator, or a DevOps specialist. The reality of keeping modern infrastructure operational demands someone who thinks across all of those boundaries simultaneously. Code that ships without a deployment strategy fails in production. Infrastructure without redundancy fails under pressure. Systems without monitoring fail silently. This background reflects direct, hands-on ownership of every layer — not theoretical familiarity, but operational responsibility. If the goal is infrastructure that is reliable, observable, and built to grow, this is that profile.
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section>
+      <div class="section-label">Education &amp; Certifications</div>
+      <div class="edu-item">
+        <div>
+          <div class="edu-degree">BSc. Computer Science</div>
+          <div class="edu-school">Maseno University</div>
+        </div>
+        <div class="edu-year">2024</div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Edwin Odero · <span>edwinodero70@gmail.com</span></p>
+      <p style="margin-top: 8px; font-size: 11px; color: #444d56;">Built to ship. Designed to last.</p>
+    </footer>
+
+  </div>
+</body>
+</html>

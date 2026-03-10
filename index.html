@@ -9,16 +9,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0b0e13;
-      --surface: #111418;
-      --surface2: #161b22;
+      --bg: #0d1117;
+      --surface: #131920;
+      --surface2: #161c24;
       --border: #21262d;
       --accent: #58a6ff;
       --accent2: #3fb950;
       --text: #e6edf3;
       --muted: #7d8590;
-      --tag-bg: #1f2937;
-      --tag-border: #30363d;
     }
 
     html { scroll-behavior: smooth; }
@@ -32,28 +30,10 @@
       min-height: 100vh;
     }
 
-    /* ── SCAN LINE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(255,255,255,0.013) 2px,
-        rgba(255,255,255,0.013) 4px
-      );
-      pointer-events: none;
-      z-index: 0;
-    }
-
     .container {
       max-width: 860px;
       margin: 0 auto;
-      padding: 60px 24px 100px;
-      position: relative;
-      z-index: 1;
+      padding: 64px 24px 100px;
     }
 
     /* ── HEADER ── */
@@ -62,8 +42,8 @@
       padding-bottom: 48px;
       margin-bottom: 56px;
       opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.7s ease forwards;
+      transform: translateY(18px);
+      animation: fadeUp 0.65s ease forwards;
     }
 
     .prompt-line {
@@ -71,13 +51,14 @@
       color: var(--accent2);
       letter-spacing: 0.08em;
       margin-bottom: 20px;
+      opacity: 0.75;
     }
 
     .prompt-line span { color: var(--muted); }
 
     h1 {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(36px, 7vw, 64px);
+      font-size: clamp(34px, 6.5vw, 60px);
       font-weight: 800;
       letter-spacing: -0.02em;
       line-height: 1.05;
@@ -91,7 +72,6 @@
     }
 
     .tagline {
-      font-family: 'DM Mono', monospace;
       font-size: 13px;
       color: var(--muted);
       margin-bottom: 28px;
@@ -102,42 +82,39 @@
     .contact {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 12px;
       align-items: center;
     }
 
     .contact a {
       color: var(--muted);
       text-decoration: none;
-      font-size: 13px;
+      font-size: 12px;
       border: 1px solid var(--border);
-      padding: 6px 14px;
+      padding: 5px 13px;
       border-radius: 4px;
-      transition: all 0.2s;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
     }
 
     .contact a:hover {
       color: var(--accent);
-      border-color: var(--accent);
-      background: rgba(88, 166, 255, 0.06);
+      border-color: rgba(88, 166, 255, 0.4);
+      background: rgba(88, 166, 255, 0.05);
     }
 
-    .contact a::before { content: '→ '; opacity: 0.4; }
-
-    /* ── SECTION ── */
+    /* ── SECTIONS ── */
     section {
       margin-bottom: 52px;
       opacity: 0;
-      transform: translateY(16px);
+      transform: translateY(14px);
       animation: fadeUp 0.6s ease forwards;
     }
 
-    section:nth-child(2) { animation-delay: 0.1s; }
-    section:nth-child(3) { animation-delay: 0.2s; }
-    section:nth-child(4) { animation-delay: 0.3s; }
-    section:nth-child(5) { animation-delay: 0.4s; }
-    section:nth-child(6) { animation-delay: 0.5s; }
-    section:nth-child(7) { animation-delay: 0.6s; }
+    section:nth-child(2) { animation-delay: 0.08s; }
+    section:nth-child(3) { animation-delay: 0.16s; }
+    section:nth-child(4) { animation-delay: 0.24s; }
+    section:nth-child(5) { animation-delay: 0.32s; }
+    section:nth-child(6) { animation-delay: 0.40s; }
 
     .section-label {
       font-size: 11px;
@@ -162,7 +139,7 @@
     .profile-text {
       color: #adbac7;
       font-size: 14px;
-      line-height: 1.8;
+      line-height: 1.85;
       border-left: 2px solid var(--accent);
       padding-left: 20px;
     }
@@ -173,11 +150,11 @@
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 28px 32px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       transition: border-color 0.2s;
     }
 
-    .job:hover { border-color: var(--accent); }
+    .job:hover { border-color: rgba(88, 166, 255, 0.35); }
 
     .job-header {
       display: flex;
@@ -191,18 +168,19 @@
     .job-title {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
-      font-size: 17px;
+      font-size: 16px;
       color: var(--text);
     }
 
     .job-company {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--accent);
-      margin-top: 3px;
+      margin-top: 4px;
+      opacity: 0.85;
     }
 
     .job-date {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--muted);
       background: var(--surface2);
       border: 1px solid var(--border);
@@ -230,22 +208,22 @@
       position: absolute;
       left: 0;
       color: var(--accent2);
-      font-size: 11px;
-      top: 2px;
+      font-size: 10px;
+      top: 3px;
     }
 
     /* ── SKILLS ── */
     .skills-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
     }
 
     .skill-row {
       display: flex;
       align-items: baseline;
       gap: 12px;
-      padding: 12px 16px;
+      padding: 11px 16px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 4px;
@@ -253,7 +231,7 @@
     }
 
     .skill-row:hover {
-      border-color: var(--accent);
+      border-color: rgba(88, 166, 255, 0.3);
       background: var(--surface2);
     }
 
@@ -266,25 +244,25 @@
       min-width: 220px;
     }
 
-    .skill-desc {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
     .skill-sep {
       color: var(--border);
       font-size: 12px;
     }
 
-    /* ── WHY THIS ROLE ── */
-    .why-block {
-      background: var(--surface2);
+    .skill-desc {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ── APPROACH BLOCK ── */
+    .approach-block {
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
+      border-left: 2px solid var(--accent);
       border-radius: 0 6px 6px 0;
-      padding: 28px 32px;
+      padding: 24px 28px;
       color: #adbac7;
-      font-size: 14px;
+      font-size: 13.5px;
       line-height: 1.85;
     }
 
@@ -317,8 +295,8 @@
     .edu-year {
       font-size: 12px;
       color: var(--accent2);
-      background: rgba(63, 185, 80, 0.08);
-      border: 1px solid rgba(63, 185, 80, 0.2);
+      background: rgba(63, 185, 80, 0.07);
+      border: 1px solid rgba(63, 185, 80, 0.18);
       padding: 4px 10px;
       border-radius: 4px;
     }
@@ -326,14 +304,19 @@
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
-      padding-top: 32px;
+      padding-top: 28px;
       margin-top: 60px;
       text-align: center;
       color: var(--muted);
       font-size: 12px;
     }
 
-    footer span { color: var(--accent); }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
@@ -351,12 +334,12 @@
     /* ── PRINT ── */
     @media print {
       body { background: white; color: black; }
-      body::before { display: none; }
-      .job, .skill-row, .edu-item, .why-block { border-color: #ccc; background: white; }
+      .job, .skill-row, .edu-item, .approach-block { border-color: #ddd; background: white; }
       .section-label { color: #333; }
-      .section-label::after { background: #ccc; }
+      .section-label::after { background: #ddd; }
       h1 { color: black; }
-      h1 em, .job-company, .contact a, .accent { color: #1a56db; }
+      h1 em, .job-company, footer a { color: #1a56db; }
+      .contact a { border-color: #ddd; color: #333; }
     }
   </style>
 </head>
@@ -372,21 +355,20 @@
       </p>
       <div class="contact">
         <a href="mailto:edwinodero70@gmail.com">edwinodero70@gmail.com</a>
-        <!-- Add more links here: GitHub, LinkedIn, etc. -->
       </div>
     </header>
 
     <!-- PROFILE -->
     <section>
-      <div class="section-label">Professional Profile</div>
+      <div class="section-label">Profile</div>
       <p class="profile-text">
-        A full-spectrum engineer operating across the entire technology stack — from software development and bare-metal provisioning to network architecture, application deployment, observability, and business continuity. The value is the ability to own infrastructure end-to-end: designing systems that are resilient by default, automating everything that should not require human intervention, and ensuring that production environments stay available, recoverable, and ready to scale. The result for any organization is fewer handoffs, faster resolution, and infrastructure treated as a first-class engineering concern.
+        Engineer with experience across the full technology stack — software development, infrastructure provisioning, deployment automation, observability, and business continuity. Focused on systems that are reliable by design: automated where appropriate, monitored proactively, and recoverable under failure. Comfortable working across the boundary between software and operations, and taking end-to-end ownership of production environments.
       </p>
     </section>
 
     <!-- EXPERIENCE -->
     <section>
-      <div class="section-label">Professional Experience</div>
+      <div class="section-label">Experience</div>
 
       <div class="job">
         <div class="job-header">
@@ -397,12 +379,12 @@
           <div class="job-date">May 2025 – Oct 2025</div>
         </div>
         <ul>
-          <li>Designed and developed internal tooling and automation scripts that streamlined infrastructure management, reducing manual intervention across provisioning and deployment workflows.</li>
-          <li>Built and maintained RESTful APIs and backend services integrated directly with hosting platform components, enabling programmatic control over server and environment configuration.</li>
+          <li>Built internal tooling and automation scripts that reduced manual intervention across provisioning and deployment workflows.</li>
+          <li>Developed RESTful APIs and backend services integrated with hosting platform components, enabling programmatic control over server and environment configuration.</li>
           <li>Architected multi-tenant web hosting infrastructure, managing deployment pipelines and environment configuration at scale.</li>
           <li>Implemented automated backup and disaster recovery workflows, ensuring defined RTO/RPO objectives were consistently met.</li>
-          <li>Designed high-availability configurations including load balancing, failover clustering, and redundant storage to eliminate single points of failure.</li>
-          <li>Established monitoring and alerting frameworks covering uptime, performance thresholds, and capacity trends — enabling proactive intervention before user impact.</li>
+          <li>Designed high-availability configurations including load balancing, failover clustering, and redundant storage.</li>
+          <li>Established monitoring and alerting frameworks covering uptime, performance thresholds, and capacity trends.</li>
           <li>Integrated CI/CD pipelines in collaboration with development teams, reducing deployment lead times and release overhead.</li>
         </ul>
       </div>
@@ -417,10 +399,10 @@
         </div>
         <ul>
           <li>Engineered and operated hybrid cloud environments, bridging on-premises infrastructure with public cloud services to support diverse workload requirements.</li>
-          <li>Managed compute, storage, and network resources across both physical and virtualized layers, ensuring consistent performance and security posture.</li>
+          <li>Managed compute, storage, and network resources across physical and virtualized layers, maintaining consistent performance and security posture.</li>
           <li>Delivered fault-tolerant architectures that maintained service continuity during infrastructure changes, hardware failures, and peak demand events.</li>
-          <li>Drove automation initiatives that replaced manual operational processes with repeatable, auditable workflows — improving reliability and reducing toil.</li>
-          <li>Owned capacity planning and scaling decisions, modeling growth patterns and adjusting infrastructure ahead of demand rather than in response to it.</li>
+          <li>Replaced manual operational processes with repeatable, auditable automation workflows — improving reliability and reducing toil.</li>
+          <li>Owned capacity planning and scaling decisions, modeling growth patterns and adjusting infrastructure ahead of demand.</li>
         </ul>
       </div>
     </section>
@@ -477,17 +459,17 @@
       </div>
     </section>
 
-    <!-- WHY THIS ROLE -->
+    <!-- APPROACH -->
     <section>
-      <div class="section-label">Why This Role</div>
-      <div class="why-block">
-        Most organizations hiring for technical roles default to a narrow job description — a developer, a systems administrator, or a DevOps specialist. The reality of keeping modern infrastructure operational demands someone who thinks across all of those boundaries simultaneously. Code that ships without a deployment strategy fails in production. Infrastructure without redundancy fails under pressure. Systems without monitoring fail silently. This background reflects direct, hands-on ownership of every layer — not theoretical familiarity, but operational responsibility. If the goal is infrastructure that is reliable, observable, and built to grow, this is that profile.
+      <div class="section-label">Approach</div>
+      <div class="approach-block">
+        Production systems work best when software, infrastructure, and operations are treated as a single concern rather than separate handoffs. My experience reflects that — writing code, provisioning the infrastructure it runs on, building the pipelines that deliver it, and keeping the whole thing observable in production. The aim is always the same: systems that hold up under pressure, fail gracefully when they don't, and are straightforward to reason about over time.
       </div>
     </section>
 
     <!-- EDUCATION -->
     <section>
-      <div class="section-label">Education &amp; Certifications</div>
+      <div class="section-label">Education</div>
       <div class="edu-item">
         <div>
           <div class="edu-degree">BSc. Computer Science</div>
@@ -498,8 +480,7 @@
     </section>
 
     <footer>
-      <p>Edwin Odero · <span>edwinodero70@gmail.com</span></p>
-      <p style="margin-top: 8px; font-size: 11px; color: #444d56;">Built to ship. Designed to last.</p>
+      <p>Edwin Odero &nbsp;·&nbsp; <a href="mailto:edwinodero70@gmail.com">edwinodero70@gmail.com</a></p>
     </footer>
 
   </div>
